@@ -4,31 +4,19 @@ import java.util.*;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
+import android.widget.FrameLayout;
 import android.widget.Toast;
-
-
 
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase;
@@ -44,15 +32,10 @@ import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
-import java.lang.ref.WeakReference;
-
-import butterknife.internal.DebouncingOnClickListener;
-
 import static org.opencv.imgproc.Imgproc.cvtColor;
 
-
 //Added from https://android.jlelse.eu/a-beginners-guide-to-setting-up-opencv-android-library-on-android-studio-19794e220f3c
-public class MainActivity extends Activity implements View.OnTouchListener, CameraBridgeViewBase.CvCameraViewListener2 {
+public class MainActivity extends Activity implements View.OnTouchListener, CameraBridgeViewBase.CvCameraViewListener2, View.OnClickListener {
     private static final String  TAG              = "MainActivity";
 
     private boolean              mIsColorSelected = false;
@@ -119,19 +102,42 @@ public class MainActivity extends Activity implements View.OnTouchListener, Came
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
+        ///*
+        CameraBridgeViewBase objCameraFrame = (CameraBridgeViewBase) findViewById(R.id.color_blob_detection_activity_surface_view);
+        assert objCameraFrame != null;
+        //objCameraFrame.setOnClickListener(this);
+        //*/
+
         //setContentView(R.layout.color_blob_detection_surface_view);
         setContentView(R.layout.activity_main);
+
+        View.OnTouchListener click = new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Toast.makeText(MainActivity.this, "Touched", Toast.LENGTH_LONG).show();
+                System.out.println("Don't Touch!");
+                return true;
+            }
+        };
 
         mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.color_blob_detection_activity_surface_view);
         mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
         mOpenCvCameraView.setCvCameraViewListener(this);
+        mOpenCvCameraView.setOnTouchListener(click);
 
         //camera permission check
         if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_REQUEST_CODE);
         }
+    }
 
+    @Override
+    public void onClick(View view) {
 
+    }
+
+    void doNothing(View v) {
+        System.out.println("doNothing()");
     }
 
     @Override
@@ -258,6 +264,38 @@ public class MainActivity extends Activity implements View.OnTouchListener, Came
 
 
 /*
+import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.SurfaceView;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+
+import java.lang.ref.WeakReference;
+
+import butterknife.internal.DebouncingOnClickListener;
+
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";

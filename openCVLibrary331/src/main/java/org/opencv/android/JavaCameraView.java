@@ -12,8 +12,10 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.FrameLayout;
 
 import org.opencv.BuildConfig;
+//import org.opencv.R;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.Size;
@@ -163,6 +165,33 @@ public class JavaCameraView extends CameraBridgeViewBase implements PreviewCallb
                     mPreviewFormat = params.getPreviewFormat();
 
                     Log.d(TAG, "Set preview size to " + Integer.valueOf((int)frameSize.width) + "x" + Integer.valueOf((int)frameSize.height));
+
+
+                    /*
+                    //Need to change to the Appropriate Preview Size
+                    Camera.Size size = camera.getParameters().getPreviewSize();
+
+                    //landscape
+                    float ratio = (float)size.width/size.height;
+
+                    //portrait
+                    //float ratio = (float)size.height/size.width;
+
+                    preview = (FrameLayout) findViewById(R.id.camera_preview);
+
+                    int new_width=0, new_height=0;
+                    if(preview.getWidth()/preview.getHeight()<ratio){
+                        new_width = Math.round(preview.getHeight()*ratio);
+                        new_height = cameraPreview.getHeight();
+                    }else{
+                        new_width = preview.getWidth();
+                        new_height = Math.round(preview.getWidth()/ratio);
+                    }
+                    preview.setLayoutParams(new FrameLayout.LayoutParams(new_width, new_height));
+
+                    */
+
+
                     params.setPreviewSize((int)frameSize.width, (int)frameSize.height);
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH && !android.os.Build.MODEL.equals("GT-I9100"))

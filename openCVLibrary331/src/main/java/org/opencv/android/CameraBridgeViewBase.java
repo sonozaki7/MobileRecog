@@ -19,6 +19,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 
 /**
  * This is a basic class, implementing the interaction with Camera and OpenCV library.
@@ -27,7 +28,7 @@ import android.view.SurfaceView;
  * frame to the screen.
  * The clients shall implement CvCameraViewListener.
  */
-public abstract class CameraBridgeViewBase extends SurfaceView implements SurfaceHolder.Callback {
+public abstract class CameraBridgeViewBase extends SurfaceView implements SurfaceHolder.Callback{
 
     private static final String TAG = "CameraBridge";
     private static final int MAX_UNSPECIFIED = -1;
@@ -55,6 +56,7 @@ public abstract class CameraBridgeViewBase extends SurfaceView implements Surfac
     public static final int CAMERA_ID_FRONT = 98;
     public static final int RGBA = 1;
     public static final int GRAY = 2;
+
 
     public CameraBridgeViewBase(Context context, int cameraId) {
         super(context);
@@ -89,6 +91,7 @@ public abstract class CameraBridgeViewBase extends SurfaceView implements Surfac
     public void setCameraIndex(int cameraIndex) {
         this.mCameraIndex = cameraIndex;
     }
+
 
     public interface CvCameraViewListener {
         /**

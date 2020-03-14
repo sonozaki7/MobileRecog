@@ -23,7 +23,7 @@ import org.opencv.utils.Converters;
 
 public class Imgproc {
 
-    public static final int INTER_LINEAR_EXACT = 7;
+    public static final int INTER_LINEAR_EXACT = 1;
     private static final int
             IPL_BORDER_CONSTANT = 0,
             IPL_BORDER_REPLICATE = 1,
